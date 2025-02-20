@@ -20,45 +20,47 @@ function WeatherDetail() {
     };
 
     fetchWeatherDetail();
-  }, [city]);
+  }, [city, API_KEY]);
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-white text-2xl">Loading...</div>;
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">{city} Weather Forecast</h1>
+    <div className="min-h-screen p-4 bg-gradient-to-b from-blue-900 to-blue-600">
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-4xl font-bold text-white drop-shadow-lg">
+          {city} Weather Forecast
+        </h1>
         <Link
           to="/"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-white/10 text-white px-6 py-2 rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 backdrop-blur-md hover:bg-gradient-to-r hover:from-purple-500/50 hover:to-blue-500/50"
         >
           Back to Home
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
         {weatherData.list.slice(0, 5).map((forecast, index) => (
           <div
             key={index}
-            className="bg-gray-50 rounded-lg p-4 text-center"
+            className="bg-white/10 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 backdrop-blur-md hover:bg-gradient-to-r hover:from-purple-500/50 hover:to-blue-500/50 p-6 text-center"
           >
-            <p className="font-semibold">
+            <p className="text-xl font-semibold text-white">
               {new Date(forecast.dt * 1000).toLocaleDateString()}
             </p>
             <img
               src={`https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`}
               alt={forecast.weather[0].description}
-              className="mx-auto"
+              className="mx-auto animate-pulse"
             />
-            <p className="text-2xl font-bold">
+            <p className="text-4xl font-extrabold text-white drop-shadow-lg">
               {Math.round(forecast.main.temp)}°C
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-200 capitalize">
               {forecast.weather[0].description}
             </p>
-            <div className="mt-2 text-sm">
+            <div className="mt-4 text-sm text-gray-300">
               <p>Humidity: {forecast.main.humidity}%</p>
               <p>Wind: {forecast.wind.speed} m/s</p>
             </div>
