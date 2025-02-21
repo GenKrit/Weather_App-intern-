@@ -13,12 +13,12 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-        <div className="flex-grow container mx-auto px-4 py-8">
+        <main className="flex-grow container mx-auto px-4 py-8">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/weather/:city" element={<WeatherDetail />} />
           </Routes>
-        </div>
+        </main>
 
         <Footer />
       </div>
