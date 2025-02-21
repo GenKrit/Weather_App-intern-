@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function Navbar({ setSearchQuery }) {
@@ -16,15 +16,20 @@ function Navbar({ setSearchQuery }) {
     }
   };
 
+  const handleLogoClick = () => {
+    setSearchQuery(''); // Clear any previous search
+    navigate('/'); // Navigate to main dashboard
+  };
+
   return (
     <nav className="backdrop-blur-lg bg-gradient-to-r from-white/30 to-white/10 shadow-lg sticky top-0 z-50 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500/40 hover:to-blue-500/40">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link
-          to="/"
-          className="text-3xl font-bold text-black transition-transform duration-300 transform hover:scale-110 hover:text-white-300"
+        <span
+          onClick={handleLogoClick}
+          className="cursor-pointer text-3xl font-bold text-black transition-transform duration-300 transform hover:scale-110 hover:text-white-300"
         >
           Weather App
-        </Link>
+        </span>
         <div className="flex space-x-2">
           <input
             type="text"
