@@ -62,7 +62,7 @@ function Home({ searchQuery }) {
   // ------------------------------------------------
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white selection:bg-purple-500/30">
+    <div className="min-h-screen pt-12 pb-12 px-4 sm:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white selection:bg-purple-500/30">
       
       {/* Container with max-width */}
       <div className="max-w-7xl mx-auto space-y-12">
