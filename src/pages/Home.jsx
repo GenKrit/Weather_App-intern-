@@ -13,7 +13,6 @@ function Home({ searchQuery }) {
    
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-  // --- CORE LOGIC PRESERVED EXACTLY AS REQUESTED ---
   useEffect(() => {
     const fetchDefaultWeather = async () => {
       const weatherData = {};
@@ -63,122 +62,168 @@ function Home({ searchQuery }) {
   // ------------------------------------------------
 
   return (
-    // Updated Background: Radial gradient for depth
-    <div className="min-h-screen pt-28 pb-12 px-4 sm:px-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900 via-slate-900 to-black text-white">
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white selection:bg-purple-500/30">
       
-      {/* Search Results Section */}
-      {searchQuery && (
-        <div className="mb-12 container mx-auto">
-          {searchError && (
-            <div className="text-center p-4 bg-red-500/20 backdrop-blur-md rounded-lg border border-red-500/30 max-w-md mx-auto animate-bounce">
-              <h2 className="text-xl text-red-200 font-semibold tracking-wide">
-                {searchError}
-              </h2>
-            </div>
-          )}
-          
-          {searchWeather && (
-            <div className="transform transition-all duration-500 hover:scale-105">
+      {/* Container with max-width */}
+      <div className="max-w-7xl mx-auto space-y-12">
+        
+        {/* Search Results Section */}
+        {searchQuery && (
+          <div className="animate-fade-in-down">
+            {searchError && (
+              <div className="text-center p-4 bg-red-500/10 backdrop-blur-md rounded-xl border border-red-500/20 max-w-lg mx-auto">
+                <h2 className="text-lg text-red-200 font-medium">
+                  {searchError}
+                </h2>
+              </div>
+            )}
+            
+            {searchWeather && (
               <Link
                 to={`/weather/${searchWeather.name}`}
-                className="group block relative overflow-hidden bg-white/10 rounded-3xl shadow-2xl hover:shadow-blue-500/20 border border-white/20 mx-auto max-w-2xl p-8 backdrop-blur-xl"
+                className="group relative block overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/10 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-blue-500/20 hover:border-white/20 hover:scale-[1.01]"
               >
-                {/* Decorative background glow */}
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-blue-500/30 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-colors duration-700"></div>
+                <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:20px_20px]"></div>
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/30 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/30 rounded-full blur-3xl group-hover:bg-blue-500/40 transition-all duration-700"></div>
                 
-                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                  <div className="text-center md:text-left">
-                    <span className="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider uppercase text-blue-200 bg-blue-500/20 rounded-full">
-                      Search Result
-                    </span>
-                    <h2 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-2 drop-shadow-md">
-                      {searchWeather.name}
-                    </h2>
-                    <p className="text-xl text-blue-100 capitalize font-medium flex items-center justify-center md:justify-start gap-2">
-                      {searchWeather.weather[0].description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center gap-6">
-                    <div className="text-right">
-                      <p className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-lg">
-                        {Math.round(searchWeather.main.temp)}°
+                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-8 md:p-12 gap-8">
+                  <div className="space-y-4 text-center md:text-left">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-sm">
+                      <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                      <span className="text-xs font-medium tracking-wider uppercase text-white/80">Current Match</span>
+                    </div>
+                    <div>
+                      <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-2">
+                        {searchWeather.name}
+                      </h2>
+                      <p className="text-xl md:text-2xl text-blue-100/80 capitalize font-light">
+                        {searchWeather.weather[0].description}
                       </p>
                     </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-8 bg-white/5 rounded-3xl p-6 border border-white/5 backdrop-blur-sm group-hover:bg-white/10 transition-colors">
                     <img
                       src={`https://openweathermap.org/img/w/${searchWeather.weather[0].icon}.png`}
                       alt={searchWeather.weather[0].description}
-                      className="w-32 h-32 drop-shadow-2xl filter brightness-110"
+                      className="w-24 h-24 md:w-32 md:h-32 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
                     />
+                    <div className="text-right">
+                      <p className="text-6xl md:text-7xl font-bold text-white tracking-tighter">
+                        {Math.round(searchWeather.main.temp)}°
+                      </p>
+                      <div className="flex justify-end gap-3 text-sm font-medium text-white/60 mt-1">
+                         <span>H: {Math.round(searchWeather.main.temp_max)}°</span>
+                         <span>L: {Math.round(searchWeather.main.temp_min)}°</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Link>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
 
-      {/* Grid Section */}
-      <div className="container mx-auto">
-        <h3 className="text-2xl font-semibold text-white/80 mb-6 pl-2 border-l-4 border-blue-500">
-          Popular Cities
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredDefaultCities.map((city, index) => (
-            <Link
-              to={`/weather/${city}`}
-              key={city}
-              // Added staggered delay effect logic would require index, but simple CSS transition works great too
-              className="group relative bg-slate-800/40 hover:bg-slate-700/40 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 border border-white/5 hover:border-white/20 backdrop-blur-md overflow-hidden"
-            >
-              {defaultWeather[city] ? (
-                <>
-                  {/* Subtle hover gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 to-purple-600/0 group-hover:from-blue-600/10 group-hover:to-purple-600/10 transition-all duration-500"></div>
-                  
-                  <div className="relative z-10 flex justify-between items-start">
-                    <div>
-                      <h2 className="text-2xl font-bold text-white mb-1 group-hover:text-blue-200 transition-colors">
-                        {city}
-                      </h2>
-                      <p className="text-sm text-gray-300 font-medium capitalize">
-                        {defaultWeather[city].weather[0].description}
-                      </p>
+        {/* Global Forecast Grid */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 px-2">
+            <div className="h-8 w-1 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full"></div>
+            <h3 className="text-2xl font-bold text-white tracking-tight">
+              Popular Cities
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredDefaultCities.map((city, index) => (
+              <div 
+                key={city}
+                className="opacity-0 animate-[fadeInUp_0.5s_ease-out_forwards]"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <Link
+                  to={`/weather/${city}`}
+                  className="group relative flex flex-col h-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 backdrop-blur-md overflow-hidden"
+                >
+                  {defaultWeather[city] ? (
+                    <>
+                      {/* Card Shine Effect */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] group-hover:animate-shine"></div>
+
+                      <div className="flex justify-between items-start mb-4 relative z-10">
+                        <div>
+                          <h2 className="text-xl font-bold text-white mb-1 tracking-wide group-hover:text-blue-200 transition-colors">
+                            {city}
+                          </h2>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-medium px-2 py-0.5 rounded bg-white/10 text-white/70 capitalize">
+                              {defaultWeather[city].weather[0].description}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-4xl font-bold text-white/90 tracking-tighter">
+                          {Math.round(defaultWeather[city].main.temp)}°
+                        </span>
+                      </div>
+
+                      <div className="mt-auto relative z-10">
+                        <div className="flex items-end justify-between border-t border-white/10 pt-4 mt-2">
+                          <div className="text-xs text-white/50 font-medium space-y-1">
+                            <p>Feels like {Math.round(defaultWeather[city].main.feels_like)}°</p>
+                            <p>Humidity {defaultWeather[city].main.humidity}%</p>
+                          </div>
+                          <img
+                            src={`https://openweathermap.org/img/w/${defaultWeather[city].weather[0].icon}.png`}
+                            alt={defaultWeather[city].weather[0].description}
+                            className="w-16 h-16 -mb-2 -mr-2 transform group-hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    // Refined Skeleton Loader
+                    <div className="animate-pulse flex flex-col h-full justify-between">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-2">
+                          <div className="h-6 bg-white/10 rounded w-24"></div>
+                          <div className="h-4 bg-white/5 rounded w-16"></div>
+                        </div>
+                        <div className="h-10 bg-white/10 rounded w-12"></div>
+                      </div>
+                      <div className="mt-6 border-t border-white/5 pt-4 flex justify-between items-end">
+                        <div className="space-y-1">
+                          <div className="h-3 bg-white/5 rounded w-16"></div>
+                          <div className="h-3 bg-white/5 rounded w-12"></div>
+                        </div>
+                        <div className="h-12 w-12 bg-white/10 rounded-full"></div>
+                      </div>
                     </div>
-                    <span className="text-4xl font-bold text-white/90">
-                      {Math.round(defaultWeather[city].main.temp)}°
-                    </span>
-                  </div>
-
-                  <div className="relative z-10 flex justify-end mt-4">
-                    <img
-                      src={`https://openweathermap.org/img/w/${defaultWeather[city].weather[0].icon}.png`}
-                      alt={defaultWeather[city].weather[0].description}
-                      className="w-16 h-16 transform transition-transform duration-500 group-hover:scale-125 drop-shadow-lg"
-                    />
-                  </div>
-                  
-                  {/* Bottom details strip */}
-                  <div className="relative z-10 mt-2 pt-3 border-t border-white/10 flex justify-between text-xs text-gray-400">
-                     <span>H: {Math.round(defaultWeather[city].main.temp_max)}°</span>
-                     <span>L: {Math.round(defaultWeather[city].main.temp_min)}°</span>
-                  </div>
-                </>
-              ) : (
-                // Loading Skeleton for individual cards
-                <div className="animate-pulse space-y-4">
-                  <div className="h-8 bg-white/10 rounded w-1/2"></div>
-                  <div className="flex justify-between">
-                    <div className="h-4 bg-white/10 rounded w-1/3"></div>
-                    <div className="h-10 bg-white/10 rounded w-10"></div>
-                  </div>
-                </div>
-              )}
-            </Link>
-          ))}
+                  )}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* custom keyframes */}
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes shine {
+          100% {
+            transform: translateX(100%);
+          }
+        }
+      `}</style>
     </div>
   );
 }
