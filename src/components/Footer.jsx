@@ -81,7 +81,7 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-6 tracking-wide text-lg">Connect</h3>
             <ul className="space-y-4 text-slate-400 text-sm">
               <li>
-                <a href="https://github.com/Genkrit" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2 hover:text-purple-400 transition-colors duration-300">
+                <a href="https://github.com/GenKrit/Weather_App-intern-" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2 hover:text-purple-400 transition-colors duration-300">
                   <span className="w-1.5 h-1.5 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   GitHub Repository
                 </a>
