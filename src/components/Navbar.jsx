@@ -28,7 +28,7 @@ function Navbar({ setSearchQuery }) {
           onClick={handleLogoClick}
           className="cursor-pointer text-3xl font-bold text-black transition-transform duration-300 transform hover:scale-110 hover:text-white-300"
         >
-          Weather App
+          Weather App by Shashwat
         </span>
         <div className="flex space-x-2">
           <input
